@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+
+	<!-- start: Meta -->
+	<meta charset="utf-8">
+	<title>Home</title>
+	<meta name="description" content="Bootstrap Metro Dashboard">
+	<meta name="author" content="">
+	<meta name="keyword" content="">
+	<!-- end: Meta -->
+
+	<!-- start: Mobile Specific -->
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- end: Mobile Specific -->
+
+	<!-- start: CSS -->
+	<link id="bootstrap-style" href="/manage/css/bootstrap.min.css" rel="stylesheet">
+	<link href="/manage/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link id="base-style" href="/manage/css/style.css" rel="stylesheet">
+	<link id="base-style-responsive" href="/manage/css/style-responsive.css" rel="stylesheet">
+	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&subset=latin,cyrillic-ext,latin-ext' rel='stylesheet' type='text/css'>
+	<!-- end: CSS -->
+
+
+	<!-- The HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+	<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<link id="ie-style" href="/manage/css/ie.css" rel="stylesheet">
+	<![endif]-->
+
+	<!--[if IE 9]>
+	<link id="ie9style" href="/manage/css/ie9.css" rel="stylesheet">
+	<![endif]-->
+
+	<!-- start: Favicon -->
+	<link rel="shortcut icon" href="img/favicon.ico">
+	<!-- end: Favicon -->
+
+
+
+
+
+</head>
+
+<body>
+<!-- start: Header -->
+<div class="navbar">
+	<div class="navbar-inner">
+		<div class="container-fluid">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".top-nav.nav-collapse,.sidebar-nav.nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+			<a class="brand" href="index.html"><span>QXBLOG</span></a>
+
+
+			<!-- start: 顶部菜单 -->
+			<div class="nav-no-collapse header-nav">
+				<ul class="nav pull-right">
+					<li><a href="#" th:href="@{/}"><img src="/images/icon/back1.png" class="miniIcon">返回博客系统</a></li>
+					<li><a href="#" th:href="@{/admin/userinfo/{id}(id=${session.user.id})}"><img src="../images/icon/role1.png" class="miniIcon">个人信息</a></li>
+
+				</ul>
+			</div>
+			<!-- end: Header Menu -->
+
+		</div>
+	</div>
+</div>
+<!-- start: Header -->
+
+<div class="container-fluid-full">
+	<div class="row-fluid">
+
+		<!-- start:左菜单栏 -->
+		<div id="sidebar-left" class="span2">
+			<div class="nav-collapse sidebar-nav">
+				<ul class="nav nav-tabs nav-stacked main-menu">
+					<li><a href="#" th:href="@{/admin/manage}"><img src="/images/icon/Windex.png" class="miniIcon"><span class="hidden-tablet"> 主页</span></a></li>
+					<li><a href="#" th:href="@{/admin/messages}"><img src="/images/icon/Wnew.png" class="miniIcon"><span class="hidden-tablet"> 最新消息</span></a></li>
+					<li><a href="#" th:href="@{/admin/blogList}"><img src="/images/icon/Wblog.png" class="miniIcon"><span class="hidden-tablet"> 博客管理 </span></a></li>
+					<li><a href="#" th:href="@{/admin/blogAdd}"><img src="/images/icon/WaddBlog.png" class="miniIcon"><span class="hidden-tablet"> 博客添加 </span></a></li>
+					<li><a href="#" th:href="@{/admin/gallery}"><img src="/images/icon/Wpictrue.png" class="miniIcon"><span class="hidden-tablet"> 图廊 </span></a></li>
+					<li><a href="#" th:href="@{/admin/userList}"><img src="/images/icon/WuserManage.png" class="miniIcon"><span class="hidden-tablet"> 用户管理 </span></a></li>
+					<li><a href="#" th:href="@{/admin/userAdd}"><img src="/images/icon/WaddUser.png" class="miniIcon"><span class="hidden-tablet"> 添加用户 </span></a></li>
+					<li><a href="#" th:href="@{/admin/userChange/{id}/toUpdate(id=${session.user.id})}"><img src="/images/icon/Wedit.png" class="miniIcon"><span class="hidden-tablet"> 信息编辑</span></a></li>
+					<li><a href="#" th:href="@{/admin/logout}"><img src="/images/icon/Wlogout.png" class="miniIcon"><span class="hidden-tablet"> 注销 </span></a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- end: Main Menu -->
+			
+		<noscript>
+			<div class="alert alert-block span10">
+				<h4 class="alert-heading">Warning!</h4>
+				<p>You need to have <a href="" target="_blank">JavaScript</a> enabled to use this site.</p>
+			</div>
+		</noscript>
+			
+			<!-- start: Content -->
+		<div id="content" class="span10">
+
+			<ul class="breadcrumb">
+				<li>
+					<img src="/images/icon/manage.png" class="miniIcon">
+					<a href="#" th:href="@{/admin/manage}">后台管理</a>
+					<img src="/images/icon/right.png" class="miniIcon">
+				</li>
+				<li>
+					<img src="/images/icon/Wnew.png" class="miniIcon">
+					<a href="#" th:href="@{/admin/messages}">最新消息</a></li>
+			</ul>
+
+			<div class="row-fluid">
+
+				<!--最新评论消息-->
+				<div class="box black span6 noMargin" onTablet="span6" onDesktop="span6">
+					<div class="box-header">
+						<h2><i class="halflings-icon white list"></i><span class="break"></span>最新评论消息</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<!--最新评论在此遍历 8个一页-->
+						<ul class="tickets metro" >
+							<!--想办法把这里遍历blue yellow red green-->
+							<li class="ticket blue" th:each="comment : ${topComments}" >
+								<a href="#" th:href="@{/admin/blog/{id}(id=${comment.blog.id})}" style="text-decoration:underline">
+									<span class="header">
+										<!--评论的文章标题 可以点击详情文章-->
+										<span class="title" th:text="${comment.blog.title}">Server unavaible</span>
+										<!--评论的序号 可用id替代-->
+										<span class="number">[#[[${comment.id}]]]</span>
+									</span>	
+									<span class="content">
+										<!--评论的内容-->
+										<span class="avatar" th:text="${comment.content}"></span>
+										<!--评论的用户名昵称-->
+										<span class="priority">&nbsp&nbsp[[${comment.nickname}]]</span>
+										<!--评论的创建时间-->
+										<span class="date" th:text="${#dates.format(comment.createTime,'yyyy-MM-dd HH:mm:ss')}">Jul 25, 2012 11:09</span>
+									</span>	                                                        
+								</a>
+							</li>
+							<br>
+
+						</ul>
+					</div>
+				</div>
+
+
+				<!--最新博客消息-->
+				<div class="box span4 noMargin" onTablet="span6" onDesktop="span6">
+					<div class="box-header">
+						<h2><i class="halflings-icon white list"></i><span class="break"></span>最新博客消息</h2>
+						<div class="box-icon">
+							<a href="#" class="btn-minimize"><i class="halflings-icon white chevron-up"></i></a>
+							<a href="#" class="btn-close"><i class="halflings-icon white remove"></i></a>
+						</div>
+					</div>
+					<div class="box-content">
+						<!--在此遍历最新博客消息  7个一页-->
+						<ul class="tickets" th:each="blog : ${page}" >
+							<li class="ticket">
+								<!--a 当中点击进入博客详情-->
+								<a href="#" th:href="@{/admin/blog/{id}(id=${blog.id})}">
+									<span class="header">
+										<!--博客标题-->
+										<span class="title" th:text="${blog.title}">Server unavaible</span>
+										<!--博客id-->
+										<span class="number">[#[[${blog.id}]]]</span>
+									</span>
+									<span class="content">
+
+										<!--博客作者-->
+										<span class="green" th:text="${blog.author}"></span>
+										<!--博客内容（10字以内）-->
+										<span class="avatar" th:text="${#strings.abbreviate(blog.content,10)}" style="margin-left: 15px"></span>
+										<!--博客分类-->
+										<span class="priority blue" th:text="${blog.type.name}">[ Low priority ]</span>
+										<!--博客创建时间-->
+										<span class="date" th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm:ss')}">Jul 25, 2012 11:09</span>
+									</span>
+								</a>
+							</li>
+
+						</ul>
+					</div>
+				</div><!--/span-->
+			
+			</div>
+			
+
+				
+			
+       
+
+	</div><!--/.fluid-container-->
+	
+			<!-- end: Content -->
+	</div><!--/#content.span10-->
+	</div><!--/fluid-row-->
+		
+	<div class="modal hide fade" id="myModal">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal">×</button>
+			<h3>Settings</h3>
+		</div>
+		<div class="modal-body">
+			<p>Here settings can be configured...</p>
+		</div>
+		<div class="modal-footer">
+			<a href="#" class="btn" data-dismiss="modal">Close</a>
+			<a href="#" class="btn btn-primary">Save changes</a>
+		</div>
+	</div>
+	
+	<div class="clearfix"></div>
+	
+	<footer>
+
+		<p>
+			<span style="text-align:left;float:left">Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://www.freemoban.com/">www.freemoban.com</a></span>
+			
+		</p>
+
+	</footer>
+	
+	<!-- start: JavaScript-->
+
+		<script src="js/jquery-1.9.1.min.js"></script>
+	<script src="js/jquery-migrate-1.0.0.min.js"></script>
+	
+		<script src="js/jquery-ui-1.10.0.custom.min.js"></script>
+	
+		<script src="js/jquery.ui.touch-punch.js"></script>
+	
+		<script src="js/modernizr.js"></script>
+	
+		<script src="js/bootstrap.min.js"></script>
+	
+		<script src="js/jquery.cookie.js"></script>
+	
+		<script src='js/fullcalendar.min.js'></script>
+	
+		<script src='js/jquery.dataTables.min.js'></script>
+
+		<script src="js/excanvas.js"></script>
+	<script src="js/jquery.flot.js"></script>
+	<script src="js/jquery.flot.pie.js"></script>
+	<script src="js/jquery.flot.stack.js"></script>
+	<script src="js/jquery.flot.resize.min.js"></script>
+	
+		<script src="js/jquery.chosen.min.js"></script>
+	
+		<script src="js/jquery.uniform.min.js"></script>
+		
+		<script src="js/jquery.cleditor.min.js"></script>
+	
+		<script src="js/jquery.noty.js"></script>
+	
+		<script src="js/jquery.elfinder.min.js"></script>
+	
+		<script src="js/jquery.raty.min.js"></script>
+	
+		<script src="js/jquery.iphone.toggle.js"></script>
+	
+		<script src="js/jquery.uploadify-3.1.min.js"></script>
+	
+		<script src="js/jquery.gritter.min.js"></script>
+	
+		<script src="js/jquery.imagesloaded.js"></script>
+	
+		<script src="js/jquery.masonry.min.js"></script>
+	
+		<script src="js/jquery.knob.modified.js"></script>
+	
+		<script src="js/jquery.sparkline.min.js"></script>
+	
+		<script src="js/counter.js"></script>
+	
+		<script src="js/retina.js"></script>
+
+		<script src="js/custom.js"></script>
+	<!-- end: JavaScript-->
+	
+</body>
+</html>

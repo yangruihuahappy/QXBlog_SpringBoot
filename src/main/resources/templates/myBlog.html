@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="zh-CN" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+<meta charset="utf-8">
+<meta name="renderer" content="webkit">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>list</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+	<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="/css/nprogress.css">
+	<link rel="stylesheet" type="text/css" href="/css/style.css">
+	<link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
+	<link rel="apple-touch-icon-precomposed" href="/images/icon.png">
+	<link rel="shortcut icon" href="/images/favicon.ico">
+	<script src="/js/jquery-2.1.4.min.js"></script>
+	<script src="/js/nprogress.js"></script>
+	<script src="/js/jquery.lazyload.min.js"></script>
+	<!--[if gte IE 9]>
+	<script src="/js/jquery-1.11.1.min.js" type="text/javascript"></script>
+	<script src="/js/html5shiv.min.js" type="text/javascript"></script>
+	<script src="/js/respond.min.js" type="text/javascript"></script>
+	<script src="/js/selectivizr-min.js" type="text/javascript"></script>
+	<![endif]-->
+<!--[if lt IE 9]>
+<script>window.location.href='upgrade-browser.html';</script>
+<![endif]-->
+</head>
+<body class="user-select">
+<header class="header">
+<nav class="navbar navbar-default" id="navbar">
+<div class="container">
+  <div class="header-topbar hidden-xs link-border">
+	  <!--根据登陆状态显示标签-->
+	  <ul class="site-nav topmenu" th:if="${session.user}==null">
+		  <li><a href="#" th:href="@{/admin}"> <img src="/images/icon/user.png" class="icon"> 去登陆</a></li>
+	  </ul>
+	  <ul class="site-nav topmenu" th:if="${session.user}!=null">
+		  <li th:text="'欢迎你！'+${session.user.nickname}"></li>
+		  <li th:if="${session.user.admin}"><a href="#" th:href="@{/admin/manage}"><img src="/images/icon/manage.png" class="icon">后台管理</a></li>
+		  <li><a href="#" th:href="@{/myBlogs}"><img src="/images/icon/blog.png" class="icon">我的博客</a></li>
+		  <li><a href="#" th:href="@{/admin/userinfo/{id}(id=${session.user.id})}"><img src="/images/icon/user.png" class="icon">个人信息
+		  </a></li>
+		  <li><a href="#" th:href="@{/admin/logout}"><img src="/images/icon/logout.png" class="icon">注销</a></li>
+	  </ul>
+	  分享 记录</div>
+	<div class="navbar-header">
+		<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#header-navbar" aria-expanded="false"> <span class="sr-only"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+		<h1 class="logo hvr-bounce-in"><a href="#" title=""><img src="/images/indexHead.jpg" alt=""></a></h1>
+	</div>
+  <div class="collapse navbar-collapse" id="header-navbar">
+	<form class="navbar-form visible-xs" action="/Search" method="post">
+	  <div class="input-group">
+		<input type="text" name="keyword" class="form-control" placeholder="请输入关键字" maxlength="20" autocomplete="off">
+		<span class="input-group-btn">
+		<button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+		</span> </div>
+	</form>
+	  <ul class="nav navbar-nav navbar-right">
+		  <li><a data-cont="QX网络博客" title="QX网络博客" th:href="@{/}">首页</a></li>
+		  <li><a data-cont="列表页" title="列表页" th:href="@{/toList}">列表页</a></li>
+		  <li><a data-cont="详细页" title="详细页" th:href="@{/}">详细页</a></li>
+		  <!--					<li><a data-cont="404" title="404" href="../404.html">404</a></li>-->
+		  <li th:if="${session.user} ne null"><a data-cont="去创作" title="创作" th:href="@{/toAdd}">去创作</a></li>
+	  </ul>
+  </div>
+</div>
+</nav>
+</header>
+<section class="container">
+<div class="content-wrap">
+<div class="content">
+  <div class="title" style="line-height: 1.3" >
+	<h3>欢迎来到<span th:text="${session.user.nickname}">我</span>的博客</h3>
+	  <!--分类-->
+	  <div class="more" th:each="type : ${types}">
+		  <a href="#" th:href="@{/formType/{id}(id=${type.id})}" th:title="${type.name}" >[[${type.name}]]
+			  <span class="badge" style="width: 22px;height: 17px;font-size: 11px;" th:text="${type.blogList.size()}">1</span>
+		  </a>
+	  </div>
+  </div>
+	<article class="excerpt excerpt-1" style="" th:each="blog : ${page}" >
+		<a class="focus" th:href="@{/toShow/{id}(id=${blog.id})}">
+			<img class="thumb" data-original="images/201610181739277776.jpg" src="../static/images/201610181739277776.jpg"  th:src="@{${blog.firstImg}}" th:alt="${blog.title}" style="display: inline;">
+		</a>
+		<header><a class="cat" href="#" title="MZ-NetBlog主题" th:text="${blog.type.name}">MZ-NetBlog主题<i></i></a>
+			<h2><a href="#" th:href="@{/toShow/{id}(id=${blog.id})}" title="用DTcms做一个独立博客网站（响应式模板）" target="_blank" th:text="${blog.title}">用DTcms做一个独立博客网站（响应式模板）</a>
+			</h2>
+		</header>
+		<p class="meta">
+			<img src="/images/icon/date.png" class="miniIcon"><time class="time" th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2016-10-14</time>
+			<img src="/images/icon/praise.png" class="miniIcon"><span class="views" th:text="${blog.praiseNum}">5</span>
+			<img src="/images/icon/comment.png" class="miniIcon"><span th:text="${blog.countComment}"> 4</span></a>
+		</p>
+		<p class="note" th:text="${#strings.abbreviate(blog.content,50)}">用DTcms做一个独立博客网站（响应式模板），采用DTcms V4.0正式版（MSSQL）。开发环境：SQL2008R2+VS2010。DTcms V4.0正式版功能修复和优化：1、favicon.ico图标后台上传。（解决要换图标时要连FTP或者开服务器的麻烦）</p>
+		<div style="float:right;">
+			<button href="#"  th:href="@{/toEdit/{id}(id=${blog.id})}" title="编辑" draggable="false" style="">编辑</button>
+			<!--点击删除  提示确认删除框 确认后即可删除-->
+			<button href="#"  th:href="@{/toDelete/{id}(id=${blog.id})}"  title="删除" draggable="false" >删除</button>
+		</div>
+		<!--待完成    编辑和删除：两个button 靠右下角 蓝红色-->
+
+	</article>
+
+<!--	<div class="ui bottom attached segment" th:if="${page.totalPages}>1">-->
+<!--		<div class="ui middle aligned two column grid">-->
+<!--			<div class="column" style="float: left">-->
+<!--				<a href="#" th:href="@{/toList/(page=${page.number}-1)}"  th:unless="${page.first}" class="ui mini teal basic button">上一页</a>-->
+<!--			</div>-->
+<!--			<div class="right aligned column" style="float: right">-->
+<!--				<a href="#" th:href="@{/toList/(page=${page.number}+1)}"  th:unless="${page.last}" class="ui mini teal basic button">下一页</a>-->
+<!--			</div>-->
+<!--		</div>-->
+<!--	</div>-->
+</div>
+</div>
+<aside class="sidebar">
+<div class="fixed">
+  <div class="widget widget_search">
+	<form class="navbar-form" action="/Search" method="post">
+	  <div class="input-group">
+		<input type="text" name="keyword" class="form-control" size="35" placeholder="请输入关键字" maxlength="15" autocomplete="off">
+		<span class="input-group-btn">
+		<button class="btn btn-default btn-search" name="search" type="submit">搜索</button>
+		</span> </div>
+	</form>
+  </div>
+
+
+  <div class="widget widget_sentence">
+	<h3>标签云</h3>
+	<div class="widget-sentence-content">
+		<ul class="plinks ptags" >
+			<li th:each="tag : ${tags}">
+				<a href="#list/67/"  th:href="@{/formTag/{tag}(tag=${tag.id})}" title="404" draggable="false" >[[${tag.name}]]
+					<span class="badge" th:text="${tag.blogList.size()}">1</span>
+				</a>
+			</li>
+
+<!--			<li><a href="#list/256/" title="404" draggable="false">404 <span class="badge">1</span></a></li>-->
+
+		</ul>
+	</div>
+  </div>
+</div>
+<div class="widget widget_hot">
+	<h3>最新评论文章</h3>
+	<!--根据评论的时间进行排序-->
+	<ul	th:each="blog : ${pageByCommentUpdateTime}">
+		<li>
+			<a title="用DTcms做一个独立博客网站（响应式模板）" href="#" th:href="@{/toShow/{id}(id=${blog.id})}">
+					<span class="thumbnail">
+						<img class="thumb" data-original="images/201610181739277776.jpg" src="../static/images/201610181739277776.jpg" th:src="@{${blog.firstImg}}" alt="用DTcms做一个独立博客网站（响应式模板）" style="display: block;">
+					</span>
+				<span class="text" th:text="${blog.title}">用DTcms做一个独立博客网站（响应式模板）</span>
+				<span class="muted">
+						<img src="/images/icon/date.png" class="miniIcon"><span th:text="${#dates.format(blog.commentUpdateTime,'yyyy-MM-dd')}">1999-01-02</span>
+					</span>
+				<img src="/images/icon/praise.png" class="miniIcon"><span class="muted" th:text="${blog.praiseNum}">88</span></a>
+		</li>
+
+	</ul>
+  </div>
+
+
+</div>
+</aside>
+</section>
+<footer class="footer">
+<div class="container">
+<p>Copyright &copy; 2016.Company name All rights reserved.<a target="_blank" href="http://www.freemoban.com/">www.freemoban.com</a> </p>
+</div>
+<div id="gotop"><a class="gotop"></a></div>
+</footer>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/jquery.ias.js"></script>
+<script src="../static/js/scripts.js"></script>
+</body>
+</html>
